@@ -1,11 +1,11 @@
-import "./index.css";
-import Wallet from "../../../services/wallet/wallet";
+import Wallet from "../../services/wallet/wallet";
 import Web3Modal from "web3modal";
-import { bytecode, CONTRACT } from "../../constants/constants";
+import { bytecode, CONTRACT } from "../../nftmint/constants/constants";
 import { useEffect, useState } from "react";
 import { utils } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
-import { connected as update } from "../../../state/action/wallet";
+import { connected as update } from "../../state/action/wallet";
+import Layout from "../../components/layout";
 
 function NFTMint() {
   const wallet = useSelector((state) => state.wallet);
@@ -213,7 +213,7 @@ function NFTMint() {
     }
   });
   return (
-    <div>
+    <Layout>
       <div className="main">
         <div>
           <h1 className="title">Welcome to Crypto Devs!</h1>
@@ -227,9 +227,7 @@ function NFTMint() {
           <img className="image" src="./crypto-devs.svg" alt="Logo" />
         </div>
       </div>
-
-      <footer className="footer">Made with &#10084; by Crypto Devs</footer>
-    </div>
+    </Layout>
   );
 }
 

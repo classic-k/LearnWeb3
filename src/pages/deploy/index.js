@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Wallet from "../../services/wallet/wallet";
 import { connected as walconnect } from "../../state/action/wallet";
 import Web3Modal from "web3modal";
+import Layout from "../../components/layout";
 
 function Deploy() {
   const { connected, signer } = useSelector((state) => state.wallet);
@@ -37,7 +38,7 @@ function Deploy() {
     }
   };
   return (
-    <div className="App">
+    <Layout>
       <h2>Import Existing Wallet or create new Wallet</h2>
       <h4 id="st_box">Not connected</h4>
       <div>
@@ -64,7 +65,7 @@ function Deploy() {
           ></textarea>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 

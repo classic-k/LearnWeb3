@@ -1,10 +1,9 @@
-import "./index.css";
 import { useState } from "react";
 import Web3Modal from "web3modal";
-import Wallet from "../../services/wallet/wallet";
+import Wallet from "../services/wallet/wallet";
 import { useDispatch, useSelector } from "react-redux";
-import { connected as update } from "../../state/action/wallet";
-// 0x80B3E9425327b5f67316054D8b77d48d87F5da58
+import { connected as update } from "../state/action/wallet";
+import Layout from "../components/layout";
 
 function Home() {
   const { connected } = useSelector((state) => state.wallet);
@@ -26,10 +25,11 @@ function Home() {
       console.log(err);
     }
   };
+  const pageTitle = "Crypto Related";
   const [connect, setConnect] = useState(connected);
   const [loading, setLoading] = useState(false);
   return (
-    <div>
+    <Layout title={pageTitle}>
       <div className="main">
         <div>
           <h1 className="title">Welcome to Crypto Devs!</h1>
@@ -42,12 +42,10 @@ function Home() {
           )}
         </div>
         <div>
-          <img className="image" src="./crypto-devs.svg" alt="Crypto-dev" />
+          <img className="image" src="./crypto-devs.svg" alt="Logo" />
         </div>
       </div>
-
-      <footer className="footer">Made with &#10084; by Crypto Devs</footer>
-    </div>
+    </Layout>
   );
 }
 
