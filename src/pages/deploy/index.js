@@ -44,15 +44,23 @@ function Deploy() {
   };
   return (
     <Layout title="Deployment">
-      <h2>Import Existing Wallet or create new Wallet</h2>
-      <h4 id="st_box">Not connected</h4>
-      <div>
-        <h3>{!connected && <button onClick={getSigner}>Connect</button>}</h3>
-        <h3>
-          <button onClick={dep}>Deploy</button>
-        </h3>
+      <div className="dep">
         <div>
-          <select className="abi_sel">
+          {!connected && (
+            <>
+              <h4>Import Existing Wallet or create new Wallet</h4>
+              <button className="button" onClick={getSigner}>
+                Connect
+              </button>
+            </>
+          )}
+          <button onClick={dep} className="button">
+            Deploy
+          </button>
+        </div>
+        <div>
+          Available Contracts{" "}
+          <select className="abi_sel txt">
             <option key="-1">Select ABI</option>
             {abis.map((val, ind) => {
               return (
@@ -62,11 +70,13 @@ function Deploy() {
               );
             })}
           </select>
+        </div>
+        <div>
           <textarea
-            className="con_args"
-            placeholder="Enter constructor arguments one per line"
+            className="con_args txt"
+            placeholder="Enter constructor arguments seperated by comma"
             rows="10"
-            cols="10"
+            cols="25"
           ></textarea>
         </div>
       </div>
