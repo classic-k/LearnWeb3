@@ -1,4 +1,5 @@
 export const CONTRACT = "0xb3DF2bd09E4b85648De6c0A746EFbb34Dd7EFA1f";
+export const ADDRESS = "";
 export const bytecode = {
   abi: [
     {
