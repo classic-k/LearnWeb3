@@ -1,3 +1,5 @@
+import Web3 from "web3";
+import { INFURA } from "../constant";
 export const copyToClipboard = (str) => {
   return _cp(str);
 };
@@ -9,12 +11,13 @@ const _cp = async (str) => {
 };
 
 export const deploy = async (bytecode, address, args = []) => {
-  const gasPrice = window.W3.eth.gas_price;
+  const W3 = new Web3(INFURA);
+  const gasPrice = W3.eth.gas_price;
   const abi = bytecode.abi;
   const datas = { data: bytecode.object, arguments: args };
-  const web3_con = new window.W3.eth.Contract(abi);
+  const web3_con = new W3.eth.Contract(abi);
 
-  const { send } = await web3_con.deploy(datas);
+  const { send } = web3_con.deploy(datas);
 
   const sopt = Object.assign(
     {},

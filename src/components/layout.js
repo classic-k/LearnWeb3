@@ -7,12 +7,6 @@ export default function Layout({ children, title }) {
     <>
       <Head>
         <title>{`${title} || DAO Reloaded`}</title>
-        <Script
-          src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"
-          onLoad={() => {
-            window.W3 = new window.web3(window.ethereum);
-          }}
-        ></Script>
       </Head>
       <Navbar />
       <main>{children}</main>
