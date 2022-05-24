@@ -6,6 +6,14 @@
   align-items: center;
   font-family: "Courier New", Courier, monospace;
 }
+.dep {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+}
 
 .footer {
   display: flex;
@@ -41,7 +49,13 @@
   padding: 20px;
   width: 200px;
   cursor: pointer;
-  margin-bottom: 2%;
+  margin: 0 1em 1em;
+}
+
+.txt {
+  margin: 0 1em 1em;
+  padding: 20px;
+  font-size: 20px;
 }
 @media (max-width: 1000px) {
   .main {

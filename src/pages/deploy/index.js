@@ -1,15 +1,18 @@
 import { deploy } from "../../utils/Utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ABIs } from "../../constant";
 import { useSelector, useDispatch } from "react-redux";
 import Wallet from "../../services/wallet/wallet";
 import { connected as walconnect } from "../../state/action/wallet";
 import Web3Modal from "web3modal";
+import Layout from "../../components/layout";
 
 function Deploy() {
-  const { connected, signer } = useSelector((state) => state.wallet);
+  const wallet = useSelector((state) => state.wallet);
+  const [connected, setConnected] = useState(wallet.connected);
   const dispatch = useDispatch();
   const abis = Object.keys(ABIs);
+  const [address, setAddress] = useState(wallet.address);
   const dep = async () => {
     const abi = document.querySelector(".abi_sel");
     const ind = abi.options.selectedIndex;
@@ -18,8 +21,8 @@ function Deploy() {
 
     const txt = document.querySelector(".con_args");
     const txt_val = txt.value.trim().split(",");
-    console.log(val, txt_val);
-    const instance = await deploy(bytecode, signer, txt_val);
+    //console.log(val, txt_val);
+    const instance = await deploy(bytecode, address, txt_val);
     console.log(instance);
   };
 
@@ -32,21 +35,32 @@ function Deploy() {
     });
     const signer = await Wallet.connect(web3Modal, true);
     const addr = await signer.getAddress();
+
     if (Wallet.isAddress(addr)) {
-      dispatch(walconnect(addr));
+      setAddress(addr);
+      setConnected(true);
+      dispatch(walconnect(signer, addr));
     }
   };
   return (
-    <div className="App">
-      <h2>Import Existing Wallet or create new Wallet</h2>
-      <h4 id="st_box">Not connected</h4>
-      <div>
-        <h3>{!connected && <button onClick={getSigner}>Connect</button>}</h3>
-        <h3>
-          <button onClick={dep}>Deploy</button>
-        </h3>
+    <Layout title="Deployment">
+      <div className="dep">
         <div>
-          <select className="abi_sel">
+          {!connected && (
+            <>
+              <h4>Import Existing Wallet or create new Wallet</h4>
+              <button className="button" onClick={getSigner}>
+                Connect
+              </button>
+            </>
+          )}
+          <button onClick={dep} className="button">
+            Deploy
+          </button>
+        </div>
+        <div>
+          Available Contracts{" "}
+          <select className="abi_sel txt">
             <option key="-1">Select ABI</option>
             {abis.map((val, ind) => {
               return (
@@ -56,15 +70,17 @@ function Deploy() {
               );
             })}
           </select>
+        </div>
+        <div>
           <textarea
-            className="con_args"
-            placeholder="Enter constructor arguments one per line"
+            className="con_args txt"
+            placeholder="Enter constructor arguments seperated by comma"
             rows="10"
-            cols="10"
+            cols="25"
           ></textarea>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 

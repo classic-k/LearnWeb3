@@ -1,4 +1,5 @@
-export const CONTRACT = "0xb3DF2bd09E4b85648De6c0A746EFbb34Dd7EFA1f";
+export const CONTRACT = "0xa52f0D20F32c709b5135f1463Ad17816257f63B7"; //"0xb3DF2bd09E4b85648De6c0A746EFbb34Dd7EFA1f";
+export const baseURI = "https://web3s.vercel.app/api/";
 export const bytecode = {
   abi: [
     {
