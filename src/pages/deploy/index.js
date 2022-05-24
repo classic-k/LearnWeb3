@@ -21,7 +21,7 @@ function Deploy() {
 
     const txt = document.querySelector(".con_args");
     const txt_val = txt.value.trim().split(",");
-    console.log(val, txt_val);
+    //console.log(val, txt_val);
     const instance = await deploy(bytecode, address, txt_val);
     console.log(instance);
   };

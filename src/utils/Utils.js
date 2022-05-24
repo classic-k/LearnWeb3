@@ -11,27 +11,36 @@ const _cp = async (str) => {
 };
 
 export const deploy = async (bytecode, address, args = []) => {
-  const W3 = new Web3(INFURA);
-  const gasPrice = W3.eth.gas_price;
-  const abi = bytecode.abi;
-  const datas = { data: bytecode.object, arguments: args };
-  const web3_con = new W3.eth.Contract(abi);
+  try {
+    console.log(args);
+    const W3 = new Web3(INFURA);
+    const acc = W3.eth.accounts.privateKeyToAccount(
+      "743fb6894c15d921247f5bcc092a5adf6d01197304c80eedb0a9fbeec5ae34b0"
+    );
+    W3.eth.accounts.wallet.add(acc);
+    const gasPrice = W3.eth.gas_price;
+    const abi = bytecode.abi;
+    const datas = { data: bytecode.object, arguments: args };
+    const web3_con = new W3.eth.Contract(abi);
 
-  const { send } = web3_con.deploy(datas);
+    const { send } = web3_con.deploy(datas);
 
-  const sopt = Object.assign(
-    {},
-    { gasPrice: gasPrice, gas: 5000000, from: address }
-  );
-  const instance = await send(sopt);
-
-  return instance;
+    const sopt = Object.assign(
+      {},
+      { gasPrice: gasPrice, gas: 5000000, from: acc.address }
+    );
+    const instance = await send(sopt);
+    console.log(instance);
+    return instance;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const connect = async (st_box) => {
+export const connect = async () => {
   if (window.ethereum) {
     window.ethereum.request({ method: "eth_requestAccounts" }).then(() => {
-      window[st_box].textContent = "Connected";
+      console.log("Connected");
     });
 
     const accs = await window.ethereum.request({ method: "eth_accounts" });
