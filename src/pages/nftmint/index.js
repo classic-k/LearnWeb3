@@ -213,7 +213,7 @@ function NFTMint() {
     }
   });
   return (
-    <Layout>
+    <Layout title="NFT Mint">
       <div className="main">
         <div>
           <h1 className="title">Welcome to Crypto Devs!</h1>
