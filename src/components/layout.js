@@ -10,7 +10,7 @@ export default function Layout({ children, title }) {
       </Head>
       <Navbar />
       <main>{children}</main>
-      <footer className="footer">Made with &#10084; by Crypto Devs</footer>
+      <footer className="footer">Made with &#10084; by Crypto Devs Kamal</footer>
     </>
   );
 }
